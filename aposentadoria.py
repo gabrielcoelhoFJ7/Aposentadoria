@@ -57,32 +57,31 @@ def main(page: ft.Page):
     def gerencia_rotas(e):
         page.views.clear()
 
-        if page.route == "/":
-            page.views.append(
-                ft.View(
-                    "/",
-                    [
-                        AppBar(title=ft.Text("INSS"), bgcolor=Colors.PRIMARY_CONTAINER),
-                        ft.Container(
-                            alignment=ft.alignment.center,
-                            content=ft.Column(
-                                [
-                                    ft.Image(src="INSS.png", width=120, height=120),
-                                    ft.Text("Simulador de Aposentadoria", size=22),
-                                    ElevatedButton("Simular Aposentadoria", on_click=lambda _: page.go("/simulacao")),
-                                    ElevatedButton("Ver Regras", on_click=lambda _: page.go("/regras")),
-                                    ElevatedButton("Modo Claro/Escuro", icon=ft.icons.DARK_MODE, on_click=alternar_tema),
-                                ],
-                                spacing=20,
-                                alignment=ft.MainAxisAlignment.CENTER,
-                                horizontal_alignment=ft.CrossAxisAlignment.CENTER
-                            )
+        page.views.append(
+            ft.View(
+                "/",
+                [
+                    AppBar(title=ft.Text("INSS"), bgcolor=Colors.PRIMARY_CONTAINER),
+                    ft.Container(
+                        alignment=ft.alignment.center,
+                        content=ft.Column(
+                            [
+                                ft.Image(src="INSS.png", width=120, height=120),
+                                ft.Text("Simulador de Aposentadoria", size=22),
+                                ElevatedButton("Simular Aposentadoria", on_click=lambda _: page.go("/simulacao")),
+                                ElevatedButton("Ver Regras", on_click=lambda _: page.go("/regras")),
+                                ElevatedButton("Modo Claro/Escuro", icon=ft.icons.DARK_MODE, on_click=alternar_tema),
+                            ],
+                            spacing=20,
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            horizontal_alignment=ft.CrossAxisAlignment.CENTER
                         )
-                    ]
-                )
+                    )
+                ]
             )
+        )
 
-        elif page.route == "/regras":
+        if page.route == "/regras":
             page.views.append(
                 ft.View(
                     "/regras",
