@@ -54,9 +54,6 @@ def main(page: ft.Page):
 
         page.go("/resultados")
 
-    def voltar_para_home(e):
-        page.go("/")
-
     def gerencia_rotas(e):
         page.views.clear()
 
@@ -71,7 +68,7 @@ def main(page: ft.Page):
                             content=ft.Column(
                                 [
                                     ft.Image(src="INSS.png", width=120, height=120),
-                                    ft.Text("Simulador de Aposentadoria", size=22, weight="bold", text_align="center"),
+                                    ft.Text("Simulador de Aposentadoria", size=22),
                                     ElevatedButton("Simular Aposentadoria", on_click=lambda _: page.go("/simulacao")),
                                     ElevatedButton("Ver Regras", on_click=lambda _: page.go("/regras")),
                                     ElevatedButton("Modo Claro/Escuro", icon=ft.icons.DARK_MODE, on_click=alternar_tema),
@@ -108,7 +105,6 @@ def main(page: ft.Page):
                                         "  60% da média + 2% por ano extra de contribuição.",
                                         size=14
                                     ),
-                                    ElevatedButton("Voltar", on_click=voltar_para_home)
                                 ],
                                 spacing=20,
                                 alignment=ft.MainAxisAlignment.CENTER
@@ -135,7 +131,6 @@ def main(page: ft.Page):
                                     input_salario,
                                     input_categoria,
                                     ElevatedButton("Calcular", on_click=calcular_aposentadoria),
-                                    ElevatedButton("Voltar", on_click=voltar_para_home),
                                 ],
                                 spacing=15,
                                 alignment=ft.MainAxisAlignment.CENTER,
@@ -157,7 +152,6 @@ def main(page: ft.Page):
                             content=ft.Column(
                                 [
                                     resultado,
-                                    ElevatedButton("Voltar ao Início", on_click=voltar_para_home)
                                 ],
                                 spacing=20,
                                 alignment=ft.MainAxisAlignment.CENTER,
@@ -167,7 +161,6 @@ def main(page: ft.Page):
                     ]
                 )
             )
-
         page.update()
 
     def voltar(e):
@@ -175,8 +168,6 @@ def main(page: ft.Page):
         top_view = page.views[-1]
         page.go(top_view.route)
 
-
-    # Inputs com estilo
     input_idade = ft.Slider(min=0, max=100, divisions=100, label="Idade: {value}")
     input_genero = ft.Dropdown(
         label="Gênero",
@@ -193,8 +184,6 @@ def main(page: ft.Page):
         ],
         width=300
     )
-
-
 
     page.on_route_change = gerencia_rotas
     page.on_view_pop = voltar
