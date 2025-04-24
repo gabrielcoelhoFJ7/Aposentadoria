@@ -30,29 +30,39 @@ def main(page: ft.Page):
                     extra = max(0, tempo - 15) * 0.02
                     valor = salario * (0.6 + extra)
                     resultado.value = f"R$ {valor:.2f}"
+                    page.go("/resultados")
                 elif categoria == "tempo" and tempo >= 35:
                     extra = max(0, tempo - 15) * 0.02
                     valor = salario * (0.6 + extra)
                     resultado.value = f"R$ {valor:.2f}"
+                    page.go("/resultados")
                 else:
                     resultado.value = "Você ainda não atende aos critérios de aposentadoria."
+                    page.update()
             elif genero == "Fem":
                 if categoria == "idade" and idade >= 62 and tempo >= 15:
                     extra = max(0, tempo - 15) * 0.02
                     valor = salario * (0.6 + extra)
                     resultado.value = f"R$ {valor:.2f}"
+                    page.go("/resultados")
                 elif categoria == "tempo" and tempo >= 30:
                     extra = max(0, tempo - 15) * 0.02
                     valor = salario * (0.6 + extra)
                     resultado.value = f"R$ {valor:.2f}"
+                    page.go("/resultados")
                 else:
                     resultado.value = "Você ainda não atende aos critérios de aposentadoria."
+                    page.update()
             else:
                 resultado.value = "Gênero inválido."
+                page.update()
         except ValueError:
             resultado.value = "Erro: Preencha todos os campos corretamente."
+            page.update()
 
-        page.go("/resultados")
+    def limpa_result(e):
+        resultado.value = ""
+        page.update()
 
     def gerencia_rotas(e):
         page.views.clear()
@@ -68,7 +78,7 @@ def main(page: ft.Page):
                             [
                                 ft.Image(src="INSS.png", width=120, height=120),
                                 ft.Text("Simulador de Aposentadoria", size=22),
-                                ElevatedButton("Simular Aposentadoria", on_click=lambda _: page.go("/simulacao")),
+                                ElevatedButton("Simular Aposentadoria", on_click=lambda _: page.go("/simulacao"), on_hover=limpa_result),
                                 ElevatedButton("Ver Regras", on_click=lambda _: page.go("/regras")),
                                 ElevatedButton("Modo Claro/Escuro", icon=ft.icons.DARK_MODE, on_click=alternar_tema),
                             ],
@@ -130,6 +140,7 @@ def main(page: ft.Page):
                                     input_salario,
                                     input_categoria,
                                     ElevatedButton("Calcular", on_click=calcular_aposentadoria),
+                                    resultado,
                                 ],
                                 spacing=15,
                                 alignment=ft.MainAxisAlignment.CENTER,
